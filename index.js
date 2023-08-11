@@ -18,7 +18,10 @@ const puppeterdiplay = (async () => {
         deviceScaleFactor: 2,
     });
     const marapetsUrl = 'https://www.marapets.com/elger.php'
-    await openWebsite(page, marapetsUrl);
+    while (true) {
+        await openWebsite(page, marapetsUrl);
+
+    }
     //browser close
     // await browser.close()
 })

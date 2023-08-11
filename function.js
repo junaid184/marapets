@@ -59,7 +59,6 @@ const noOfItems = async (page) => {
 const buyItems = async (page, noOfItems) => {
 
     try {
-
         //for item buying one by one
         for (var i = 1; i <= noOfItems; i++) {
             await page.waitForTimeout(5000);
@@ -73,23 +72,26 @@ const buyItems = async (page, noOfItems) => {
                 return herf;
             })
             console.log(`buy link: ${href}`);
-
             console.log("now going to buy link")
-
             await page.goto(`https://marapets.com/${href}`);
-
-
-
             await page.goBack();
-
-            console.log("item bought");
-
             await page.waitForTimeout(5000);
         }
+        await completeQuest(page);
 
     }
 
     catch (e) {
         console.log("problem in buying items: ", e.message);
     }
+}
+
+const completeQuest = async (page) => {
+    console.log('clicking on Complete Quest');
+    await page.click('input[value="Complete Quest"]', { visible: true, timeout: 50000 });
+    console.log('clicked')
+    await page.waitForSelector('input[value="Go Back"');
+    console.log('waiting for Go Back')
+    await page.click('input[value="Go Back"]', { visible: true, timeout: 50000 });
+    console.log('clicked on Go Back');
 }
